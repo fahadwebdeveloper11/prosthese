@@ -1,0 +1,24 @@
+{
+  "prostheses": [
+    {
+      "id": "1",
+      "type": "hip",
+      "surgicalAccesses": 2,
+      "evaluations": [],
+      "indicators": [
+        {
+          "name": "Pain Level",
+          "type": "number",
+          "preSurgery": 0,
+          "postSurgery": 0
+        },
+        {
+          "name": "Mobility",
+          "type": "text",
+          "preSurgery": "",
+          "postSurgery": ""
+        }
+      ]
+    }
+  ]
+}
