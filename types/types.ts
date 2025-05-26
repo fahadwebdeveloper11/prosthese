@@ -14,7 +14,18 @@ export interface Prosthesis {
 }
 
 export interface Evaluation {
+  id: string;
   date: Date;
+  prostheseId: string;
+  prostheseType: string;
   score: number;
   notes: string;
+  tests?: {
+    id: string;
+    question: string;
+    options: string[];
+    selectedOption: string;
+    score: number;
+  }[];
+
 }

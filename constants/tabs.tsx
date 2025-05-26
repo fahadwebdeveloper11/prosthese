@@ -11,14 +11,23 @@ export const tabs = [
     },
   },
   {
-    name: "evaluations/index",
+    name: "all-prostheses/index",
     options: {
-      title: "Evaluations",
+      title: "All Prostheses",
       tabBarIcon: ({ color }: { color: string }) => (
         <FontAwesome name="check-square-o" size={24} color={color} />
       ),
     },
-  },
+  }, 
+  // {
+  //   name: "evaluations/index",
+  //   options: {
+  //     title: "Evaluations",
+  //     tabBarIcon: ({ color }: { color: string }) => (
+  //       <FontAwesome name="check-square-o" size={24} color={color} />
+  //     ),
+  //   },
+  // },
   {
     name: "settings/index",
     options: {

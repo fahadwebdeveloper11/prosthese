@@ -25,6 +25,11 @@ export const ProsthesisContext = createContext<ProsthesisContextType>({
   ) => {},
   getProsthesisById: (id: string) => undefined,
   addEvaluation: async (prosthesisId: string, evaluation: Evaluation) => {},
+  updateEvaluation: async (
+    prosthesisId: string,
+    evaluationId: string,
+    updatedEvaluation: Evaluation
+  ) => {},
 });
 
 export const ProsthesisProvider = ({
@@ -64,7 +69,31 @@ export const ProsthesisProvider = ({
       id: Date.now().toString(),
       type,
       surgicalAccesses,
-      evaluations: [],
+      evaluations: [
+        {
+          id: Date.now().toString(),
+          prostheseId: Date.now().toString(),
+          prostheseType: type,
+          date: new Date(),
+          score: 85,
+          notes: "Patient adapting well to the new prosthesis",
+          tests: [
+            {
+              id: "comfort",
+              question: "Comfort level",
+              options: [
+                "Very comfortable",
+                "Comfortable",
+                "Neutral",
+                "Uncomfortable",
+                "Very uncomfortable",
+              ],
+              selectedOption: "Comfortable",
+              score: 80,
+            },
+          ],
+        },
+      ],
       indicators: JSON.parse(JSON.stringify(defaultIndicators)), // Deep copy
     };
     await saveData([...prostheses, newProsthesis]);
@@ -107,6 +136,37 @@ export const ProsthesisProvider = ({
     await saveData(updatedProstheses);
   };
 
+  const updateEvaluation = async (
+    prosthesisId: string,
+    evaluationId: string,
+    updatedEvaluation: Evaluation
+  ) => {
+    const updatedProstheses = prostheses.map((prosthesis) => {
+      if (prosthesis.id === prosthesisId) {
+        const updatedEvaluations = prosthesis.evaluations.map((evaluation) => {
+          if (evaluation.id === evaluationId) {
+            return {
+              ...evaluation,
+              ...updatedEvaluation,
+              // Preserve the original date if not being updated
+              date: updatedEvaluation.date || evaluation.date,
+              // Ensure tests array exists
+              tests: updatedEvaluation.tests || evaluation.tests || [],
+            };
+          }
+          return evaluation;
+        });
+        return {
+          ...prosthesis,
+          evaluations: updatedEvaluations,
+        };
+      }
+      return prosthesis;
+    });
+
+    await saveData(updatedProstheses);
+  };
+
   const getProsthesisById = (id: string) => prostheses.find((p) => p.id === id);
   useEffect(() => {
     loadData();
@@ -121,6 +181,7 @@ export const ProsthesisProvider = ({
         updateIndicator,
         getProsthesisById,
         addEvaluation,
+        updateEvaluation
       }}
     >
       {children}

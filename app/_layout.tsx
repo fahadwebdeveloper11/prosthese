@@ -25,11 +25,11 @@ export default function RootLayout() {
   return (
     <ProsthesisProvider>
       <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-        <Stack screenOptions={{headerShown:false}}>
+        <Stack screenOptions={{ headerShown: false }}>
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
           <Stack.Screen name="+not-found" />
         </Stack>
-        <StatusBar style="auto" />
+        <StatusBar style={"dark"} />
       </ThemeProvider>
     </ProsthesisProvider>
   );

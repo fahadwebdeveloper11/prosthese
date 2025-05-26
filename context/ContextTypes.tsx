@@ -18,4 +18,9 @@ export type ProsthesisContextType = {
     prosthesisId: string,
     evaluation: Evaluation
   ) => Promise<void>;
+  updateEvaluation: (
+    prosthesisId: string,
+    evaluationId: string,
+    updatedEvaluation: Evaluation
+  ) => Promise<void>;
 };

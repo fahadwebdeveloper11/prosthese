@@ -19,7 +19,8 @@ const SectionLink = ({
     <View style={styles.section}>
       <Text style={styles.sectionTitle}>{title}</Text>
       <Link href={href as any} asChild>
-        {buttonTitle ? <Button title={buttonTitle} /> : <Text>{linkText}</Text>}
+        {/* {buttonTitle ?  : <Text>{linkText}</Text>} */}
+        <Button title={buttonTitle || linkText as string} />
       </Link>
     </View>
   );
