@@ -1,9 +1,10 @@
+import { Colors } from "@/constants/Colors";
 import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#f5f5f5",
+    backgroundColor: Colors.background,
   },
   header: {
     flexDirection: "row",
@@ -34,6 +35,7 @@ export const styles = StyleSheet.create({
     borderRadius: 8,
     marginBottom: 16,
     overflow: "hidden",
+    backgroundColor: Colors.white,
   },
   picker: {
     width: "100%",
@@ -59,5 +61,22 @@ export const styles = StyleSheet.create({
     color: "white",
     fontSize: 16,
     fontWeight: "bold",
+  },
+  dateContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  dateButton: {
+    flexDirection: "row",
+    alignItems: "center",
+    padding: 10,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: "#ddd",
+  },
+  dateText: {
+    marginLeft: 10,
+    fontSize: 16,
+    color: "#007AFF",
   },
 });

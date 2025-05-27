@@ -1,5 +1,4 @@
 // contexts/ProsthesisContext.tsx
-import { defaultIndicators } from "@/constants/indicators";
 import { Evaluation, Prosthesis } from "@/types/types";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { createContext, useContext, useEffect, useState } from "react";
@@ -8,21 +7,17 @@ import { ProsthesisContextType } from "./ContextTypes";
 export const ProsthesisContext = createContext<ProsthesisContextType>({
   prostheses: [],
   isLoading: true,
-  addProsthesis: async (type: string, surgicalAccesses: number) => {
+
+  addProsthesis: async (data: any) => {
     return {
       id: "",
-      type,
-      surgicalAccesses,
+      type: data.type,
+      hospitalName: data.hospitalName,
+      date: data.date,
+      prostheseName: data.prostheseName,
       evaluations: [],
-      indicators: [],
     };
   },
-  updateIndicator: async (
-    prosthesisId: string,
-    indicatorIndex: number,
-    field: "preSurgery" | "postSurgery",
-    value: any
-  ) => {},
   getProsthesisById: (id: string) => undefined,
   addEvaluation: async (prosthesisId: string, evaluation: Evaluation) => {},
   updateEvaluation: async (
@@ -64,16 +59,19 @@ export const ProsthesisProvider = ({
     }
   };
 
-  const addProsthesis = async (type: string, surgicalAccesses: number) => {
+  const addProsthesis = async (data: any,) => {
     const newProsthesis: Prosthesis = {
       id: Date.now().toString(),
-      type,
-      surgicalAccesses,
+      type: data.type,
+      hospitalName: data.hospitalName,
+      date: data.date,
+      prostheseName: data.prostheseName,
+
       evaluations: [
         {
           id: Date.now().toString(),
           prostheseId: Date.now().toString(),
-          prostheseType: type,
+          prostheseType: data.type,
           date: new Date(),
           score: 85,
           notes: "Patient adapting well to the new prosthesis",
@@ -94,7 +92,6 @@ export const ProsthesisProvider = ({
           ],
         },
       ],
-      indicators: JSON.parse(JSON.stringify(defaultIndicators)), // Deep copy
     };
     await saveData([...prostheses, newProsthesis]);
     return newProsthesis;
@@ -112,26 +109,6 @@ export const ProsthesisProvider = ({
         };
       }
       return prosthesis;
-    });
-    await saveData(updatedProstheses);
-  };
-
-  const updateIndicator = async (
-    prosthesisId: string,
-    indicatorIndex: number,
-    field: "preSurgery" | "postSurgery",
-    value: any
-  ) => {
-    const updatedProstheses = prostheses.map((p) => {
-      if (p.id === prosthesisId) {
-        const updatedIndicators = [...p.indicators];
-        updatedIndicators[indicatorIndex] = {
-          ...updatedIndicators[indicatorIndex],
-          [field]: value,
-        };
-        return { ...p, indicators: updatedIndicators };
-      }
-      return p;
     });
     await saveData(updatedProstheses);
   };
@@ -178,10 +155,9 @@ export const ProsthesisProvider = ({
         prostheses,
         isLoading,
         addProsthesis,
-        updateIndicator,
         getProsthesisById,
         addEvaluation,
-        updateEvaluation
+        updateEvaluation,
       }}
     >
       {children}

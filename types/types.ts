@@ -1,16 +1,19 @@
-export interface Indicator {
-  name: string;
-  preSurgery: boolean | number | string;
-  postSurgery: boolean | number | string;
-  type: "boolean" | "number" | "text";
-}
+// // Define types
+export type EvaluationTest = {
+  id: string;
+  question: string;
+  options: string[];
+  selectedOption?: string;
+  score?: number;
+};
 
 export interface Prosthesis {
   id: string;
   type: string;
-  surgicalAccesses: number;
   evaluations: Evaluation[];
-  indicators: Indicator[];
+  hospitalName: string;
+  date: Date;
+  prostheseName: string;
 }
 
 export interface Evaluation {
@@ -27,5 +30,14 @@ export interface Evaluation {
     selectedOption: string;
     score: number;
   }[];
-
 }
+
+export type EvaluationWithType = {
+  id: string;
+  date: string;
+  score: number;
+  notes?: string;
+  prosthesisType: string;
+  prosthesisId: string;
+  tests?: EvaluationTest[];
+};

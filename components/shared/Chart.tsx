@@ -26,7 +26,7 @@ const Chart: FC<CharProps> = ({ labels, dataPoints, chartWidth }) => {
         height={220}
         chartConfig={chartConfig}
         bezier
-        style={{ borderRadius: 16 }}
+        style={{ borderRadius: 16 ,}}
       />
     </View>
   );
@@ -38,5 +38,7 @@ const styles = StyleSheet.create({
   chartContainer: {
     alignItems: "center",
     justifyContent: "center",
+    // paddingHorizontal: 20,
+    marginRight: 40
   },
 });
