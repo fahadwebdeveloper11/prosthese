@@ -1,13 +1,14 @@
+import { DatePickerButton } from "@/components/shared/DatePickerBtn";
 import Header from "@/components/shared/Header";
+import { Input, Select } from "@/components/shared/InputAndSelect";
+import { Colors } from "@/constants/Colors";
 import { prostheseTypes } from "@/constants/prosthese-types";
 import { useProstheses } from "@/context/ProsthesesContext";
 import { styles } from "@/styles/add-prosthese/add-prosthese";
-import { FontAwesome } from "@expo/vector-icons";
 import DateTimePicker from "@react-native-community/datetimepicker";
-import { Picker } from "@react-native-picker/picker";
 import { router } from "expo-router";
-import { useState } from "react";
-import { Text, TextInput, TouchableOpacity, View } from "react-native";
+import { useCallback, useState } from "react";
+import { Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 type ProsthesisType = "Hip" | "Knee" | "Shoulder";
@@ -18,13 +19,21 @@ export default function AddProsthesis() {
     prostheseName: "",
     date: new Date(),
     hospitalName: "",
+    position: "",
   });
+
   const [showDatePicker, setShowDatePicker] = useState(false);
 
   const { addProsthesis } = useProstheses();
 
-  const handleSubmit = async () => {
-    if (!data.prostheseName || !data.hospitalName || !data.type || !data.date) {
+  const handleSubmit = useCallback(async () => {
+    if (
+      !data.prostheseName ||
+      !data.hospitalName ||
+      !data.type ||
+      !data.date ||
+      !data.position
+    ) {
       alert("Please fill all fields");
       return;
     }
@@ -36,67 +45,74 @@ export default function AddProsthesis() {
       alert("Failed to save prosthesis");
       console.error("Save error:", error);
     }
-  };
+  }, [addProsthesis, data, router]);
 
-  const onChangeDate = (event: any, selectedDate?: Date) => {
-    setShowDatePicker(false);
-    if (selectedDate) {
+  const onChangeDate = useCallback(
+    (event: any, selectedDate?: Date) => {
+      setShowDatePicker(false);
+      if (selectedDate) {
+        setData({
+          ...data,
+          date: selectedDate,
+        });
+      }
+    },
+    [data, setData]
+  );
+
+  const handleInputChange = useCallback(
+    (val: string, key: string) => {
       setData({
         ...data,
-        date: selectedDate,
+        [key]: val,
       });
-    }
-  };
-
-  const handleInputChange = (val: string, key: string) => {
-    setData({
-      ...data,
-      [key]: val,
-    });
-  };
+    },
+    [data, setData]
+  );
   return (
     <SafeAreaView style={styles.container}>
       <Header title="Add Prosthesis" />
 
       <View style={styles.formContainer}>
-        <Text style={styles.label}>Prosthese Name</Text>
-        <TextInput
-          style={styles.input}
+        <Input
+          label="Prosthese Name"
           value={data.prostheseName}
           onChangeText={(val) => handleInputChange(val, "prostheseName")}
           placeholder="Enter prosthese name"
         />
-        <Text style={styles.label}>Prosthesis Type:</Text>
-        <View style={styles.pickerContainer}>
-          <Picker
-            selectedValue={data.type}
-            onValueChange={(itemValue) => handleInputChange(itemValue, "type")}
-            style={styles.picker}
-          >
-            {prostheseTypes.map((item, index) => (
-              <Picker.Item key={index} label={item} value={item} />
-            ))}
-          </Picker>
-        </View>
 
-        <Text style={styles.label}>Hospital Name</Text>
-        <TextInput
-          style={styles.input}
+        <Select
+          label="Prosthesis Type"
+          selectedValue={data.type}
+          onValueChange={(itemValue) => handleInputChange(itemValue, "type")}
+          items={prostheseTypes}
+        />
+
+        <Input
+          label="Hospital Name"
           value={data.hospitalName}
           onChangeText={(val) => handleInputChange(val, "hospitalName")}
           placeholder="Enter hospital name"
         />
-        <View style={styles.dateContainer}>
-          <TouchableOpacity
-            style={styles.dateButton}
-            onPress={() => setShowDatePicker(true)}
-          >
-            <FontAwesome name="calendar" size={20} color="#007AFF" />
-            <Text style={styles.dateText}>
-              {data.date.toLocaleDateString()}
-            </Text>
-          </TouchableOpacity>
-        </View>
+
+        <Input
+          label="Position"
+          value={data.position}
+          onChangeText={(val) => handleInputChange(val, "position")}
+          placeholder="Position (Left, Right, T1, T2, etc.)"
+        />
+
+        <DatePickerButton
+          date={data.date}
+          onPress={() => setShowDatePicker(true)}
+          containerStyle={styles.dateContainer}
+          buttonStyle={styles.dateButton}
+          isLabel
+          textStyle={{
+            color: data.date > new Date() ? Colors.yellow : Colors.green,
+          }}
+          iconColor={data.date > new Date() ? Colors.yellow : Colors.green}
+        />
 
         <TouchableOpacity style={styles.saveButton} onPress={handleSubmit}>
           <Text style={styles.saveButtonText}>Save Prosthesis</Text>
@@ -109,7 +125,7 @@ export default function AddProsthesis() {
           mode="date"
           display="default"
           onChange={onChangeDate}
-          maximumDate={new Date()}
+          // maximumDate={new Date()}
         />
       )}
     </SafeAreaView>

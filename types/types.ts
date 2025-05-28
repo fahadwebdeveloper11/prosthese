@@ -14,6 +14,7 @@ export interface Prosthesis {
   hospitalName: string;
   date: Date;
   prostheseName: string;
+  position: string;
 }
 
 export interface Evaluation {

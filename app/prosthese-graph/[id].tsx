@@ -1,5 +1,6 @@
 import TabHeader from "@/components/prosthese-graph/TabHeader";
 import Chart from "@/components/shared/Chart";
+import { DatePickerButton } from "@/components/shared/DatePickerBtn";
 import Header from "@/components/shared/Header";
 import { monthNames } from "@/constants/prosthese-graph";
 import { useProstheses } from "@/context/ProsthesesContext";
@@ -184,13 +185,10 @@ export default function GraphsScreen() {
         </View>
 
         <View style={styles.dateContainer}>
-          <TouchableOpacity
-            style={styles.dateButton}
+          <DatePickerButton
+            date={date}
             onPress={() => setShowDatePicker(true)}
-          >
-            <FontAwesome name="calendar" size={20} color="#007AFF" />
-            <Text style={styles.dateText}>{date.toLocaleDateString()}</Text>
-          </TouchableOpacity>
+          />
 
           <TouchableOpacity
             style={styles.addButton}

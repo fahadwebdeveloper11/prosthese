@@ -35,13 +35,15 @@ export default function ProsthesesList() {
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
         contentContainerStyle={styles.listContent}
+        ListFooterComponent={() => (
+          <Link href="/add-prosthese" asChild>
+            <TouchableOpacity style={styles.addButton}>
+              <FontAwesome name="plus" size={18} color="white" />
+              <Text style={styles.addButtonText}> Add Prosthesis</Text>
+            </TouchableOpacity>
+          </Link>
+        )}
       />
-      <Link href="/add-prosthese" asChild>
-        <TouchableOpacity style={styles.addButton}>
-          <FontAwesome name="plus" size={18} color="white" />
-          <Text style={styles.addButtonText}> Add Prosthesis</Text>
-        </TouchableOpacity>
-      </Link>
     </SafeAreaView>
   );
 }

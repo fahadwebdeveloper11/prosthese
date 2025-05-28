@@ -1,33 +1,88 @@
 import { styles } from "@/styles/prostheses/prostheses-card";
+import { EvaluationWithType } from "@/types/types";
 import { FontAwesome, Ionicons } from "@expo/vector-icons";
 import { Link } from "expo-router";
-import React, { FC } from "react";
-import { Text, TouchableOpacity, View } from "react-native";
+import React from "react";
+import { StyleProp, Text, TextStyle, View, ViewStyle } from "react-native";
 
-interface ProsthesesCardProps {
-  item: any;
-}
+// Define your types
+type ProsthesisItem = {
+  id: string;
+  type: string;
+  evaluations: EvaluationWithType[];
+  hospitalName: string;
+  date: Date | string;
+  prostheseName: string;
+  position: string;
+  surgicalAccesses?: number;
+};
 
-const ProsthesesCard: FC<ProsthesesCardProps> = ({ item }) => {
+type ProsthesisListItemProps = {
+  item: ProsthesisItem;
+  containerStyle?: StyleProp<any>;
+  headerStyle?: StyleProp<ViewStyle>;
+  titleStyle?: StyleProp<TextStyle>;
+  labelStyle?: StyleProp<TextStyle>;
+  valueStyle?: StyleProp<TextStyle>;
+  iconSize?: number;
+  iconColor?: string;
+};
+
+const ProsthesesCard: React.FC<ProsthesisListItemProps> = ({
+  item,
+  containerStyle,
+  headerStyle,
+  titleStyle,
+  iconSize = 20,
+  iconColor = "#007AFF",
+  labelStyle,
+  valueStyle,
+}) => {
+  const renderIcon = () => {
+    switch (item.type) {
+      case "Hip":
+        return (
+          <FontAwesome name="wheelchair" size={iconSize} color={iconColor} />
+        );
+      case "Knee":
+        return <Ionicons name="walk" size={iconSize} color={iconColor} />;
+      default:
+        return <FontAwesome name="user-md" size={iconSize} color={iconColor} />;
+    }
+  };
+
   return (
-    <Link href={`/single-prosthese/${item.id}`} asChild>
-      <TouchableOpacity style={styles.item}>
-        <View style={styles.itemHeader}>
-          {(item.type === "Hip" && (
-            <FontAwesome name="wheelchair" size={20} color="#007AFF" />
-          )) ||
-            (item.type === "Knee" && (
-              <Ionicons name="walk" size={20} color="#007AFF" />
-            )) || <FontAwesome name="user-md" size={20} color="#007AFF" />}
-          <Text style={styles.title}>{item.type} Prosthesis</Text>
+    <Link href={`/single-prosthese/${item.id}`}>
+      <View style={[styles.item, containerStyle]}>
+        <View style={[styles.itemHeader, headerStyle]}>
+          {renderIcon()}
+          <Text style={[styles.title, titleStyle]} numberOfLines={1}>
+            {item.type} Prosthesis
+          </Text>
         </View>
-        <Text style={styles.detail}>
-          Surgical Accesses: {item.surgicalAccesses || 0}
-        </Text>
-        <Text style={styles.detail}>
-          Evaluations: {item.evaluations?.length || 0}
-        </Text>
-      </TouchableOpacity>
+
+        <View style={styles.detailRow}>
+          <Text style={[styles.label, labelStyle]}>Name:</Text>
+          <Text style={[styles.value, valueStyle]}>{item.prostheseName}</Text>
+        </View>
+
+        <View style={styles.detailRow}>
+          <Text style={[styles.label, labelStyle]}>Position:</Text>
+          <Text style={[styles.value, valueStyle]}>{item.position || "-"}</Text>
+        </View>
+
+        <View style={styles.detailRow}>
+          <Text style={[styles.label, labelStyle]}>Hospital:</Text>
+          <Text style={[styles.value, valueStyle]}>{item.hospitalName}</Text>
+        </View>
+
+        <View style={styles.detailRow}>
+          <Text style={[styles.label, labelStyle]}>Date:</Text>
+          <Text style={[styles.value, valueStyle]}>
+            {new Date(item.date).toLocaleDateString()}
+          </Text>
+        </View>
+      </View>
     </Link>
   );
 };

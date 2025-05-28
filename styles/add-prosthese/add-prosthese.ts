@@ -12,7 +12,7 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     padding: 16,
     borderBottomWidth: 1,
-    borderBottomColor: "#eee",
+    borderBottomColor: Colors.border_gray,
   },
   title: {
     fontSize: 20,
@@ -22,35 +22,11 @@ export const styles = StyleSheet.create({
   formContainer: {
     flex: 1,
     padding: 20,
+    gap: 20,
   },
-  label: {
-    fontSize: 16,
-    fontWeight: "600",
-    marginBottom: 8,
-    color: "#444",
-  },
-  pickerContainer: {
-    borderWidth: 1,
-    borderColor: "#ccc",
-    borderRadius: 8,
-    marginBottom: 16,
-    overflow: "hidden",
-    backgroundColor: Colors.white,
-  },
-  picker: {
-    width: "100%",
-  },
-  input: {
-    borderWidth: 1,
-    borderColor: "#ccc",
-    borderRadius: 8,
-    padding: 12,
-    marginBottom: 24,
-    fontSize: 16,
-    backgroundColor: "white",
-  },
+
   saveButton: {
-    backgroundColor: "#007AFF",
+    backgroundColor: Colors.primary_blue,
     padding: 16,
     borderRadius: 8,
     alignItems: "center",
@@ -63,20 +39,9 @@ export const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   dateContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
+    flexDirection: "column",
   },
   dateButton: {
-    flexDirection: "row",
-    alignItems: "center",
-    padding: 10,
-    borderRadius: 10,
-    borderWidth: 1,
-    borderColor: "#ddd",
-  },
-  dateText: {
-    marginLeft: 10,
-    fontSize: 16,
-    color: "#007AFF",
+    maxWidth: "40%",
   },
 });

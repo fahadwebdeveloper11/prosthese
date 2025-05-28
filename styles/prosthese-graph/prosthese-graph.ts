@@ -5,9 +5,7 @@ export const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
   },
-  contentContainer: {
-    
-  },
+  contentContainer: {},
   header: {
     marginBottom: 20,
   },
@@ -32,7 +30,7 @@ export const styles = StyleSheet.create({
     fontSize: 14,
     color: "#999",
   },
-  
+
   inputContainer: {
     flexDirection: "row",
     alignItems: "center",
@@ -53,12 +51,12 @@ export const styles = StyleSheet.create({
     color: "#666",
   },
   dateContainer: {
+    marginVertical: 20,
     flexDirection: "row",
     justifyContent: "space-between",
     marginHorizontal: 20,
-    marginTop: 15,
-    marginBottom: 20,
   },
+
   dateButton: {
     flexDirection: "row",
     alignItems: "center",
@@ -95,8 +93,7 @@ export const styles = StyleSheet.create({
     marginHorizontal: 20,
     marginVertical: 20,
     flexDirection: "row",
-    gap:8
-
+    gap: 8,
   },
   shareBtnText: {
     color: "white",

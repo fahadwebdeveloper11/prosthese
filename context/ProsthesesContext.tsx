@@ -16,6 +16,7 @@ export const ProsthesisContext = createContext<ProsthesisContextType>({
       date: data.date,
       prostheseName: data.prostheseName,
       evaluations: [],
+      position: data.position,
     };
   },
   getProsthesisById: (id: string) => undefined,
@@ -59,14 +60,14 @@ export const ProsthesisProvider = ({
     }
   };
 
-  const addProsthesis = async (data: any,) => {
+  const addProsthesis = async (data: any) => {
     const newProsthesis: Prosthesis = {
       id: Date.now().toString(),
       type: data.type,
       hospitalName: data.hospitalName,
       date: data.date,
       prostheseName: data.prostheseName,
-
+      position: data.position,
       evaluations: [
         {
           id: Date.now().toString(),
