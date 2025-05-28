@@ -8,6 +8,7 @@ import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import "react-native-reanimated";
 
+import { AuthProvider } from "@/context/AuthContext";
 import { ProsthesisProvider } from "@/context/ProsthesesContext";
 import { useColorScheme } from "@/hooks/useColorScheme";
 
@@ -23,14 +24,18 @@ export default function RootLayout() {
   }
 
   return (
-    <ProsthesisProvider>
-      <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-        <Stack screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-          <Stack.Screen name="+not-found" />
-        </Stack>
-        <StatusBar style={"dark"} />
-      </ThemeProvider>
-    </ProsthesisProvider>
+    <AuthProvider>
+      <ProsthesisProvider>
+        <ThemeProvider
+          value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
+        >
+          <Stack screenOptions={{ headerShown: false }}>
+            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+            <Stack.Screen name="+not-found" />
+          </Stack>
+          <StatusBar style={"dark"} />
+        </ThemeProvider>
+      </ProsthesisProvider>
+    </AuthProvider>
   );
 }
