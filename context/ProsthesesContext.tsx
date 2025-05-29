@@ -26,6 +26,7 @@ export const ProsthesisContext = createContext<ProsthesisContextType>({
     evaluationId: string,
     updatedEvaluation: Evaluation
   ) => {},
+  deleteAllProsthesis: async () => {},
 });
 
 export const ProsthesisProvider = ({
@@ -47,6 +48,11 @@ export const ProsthesisProvider = ({
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const deleteAllProsthesis = async () => {
+    await AsyncStorage.removeItem("@prosthesis_app_data");
+    setProstheses([]);
   };
 
   const saveData = async (data: Prosthesis[]) => {
@@ -159,6 +165,7 @@ export const ProsthesisProvider = ({
         getProsthesisById,
         addEvaluation,
         updateEvaluation,
+        deleteAllProsthesis
       }}
     >
       {children}

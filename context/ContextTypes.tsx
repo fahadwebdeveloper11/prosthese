@@ -14,4 +14,5 @@ export type ProsthesisContextType = {
     evaluationId: string,
     updatedEvaluation: Evaluation
   ) => Promise<void>;
+  deleteAllProsthesis: () => Promise<void>;
 };

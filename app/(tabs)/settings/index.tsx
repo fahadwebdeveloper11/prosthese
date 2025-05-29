@@ -6,6 +6,7 @@ import {
 } from "@/components/shared/SettingSection";
 import { Colors } from "@/constants/Colors";
 import { Gender, useUserContext } from "@/context/AuthContext";
+import { useProstheses } from "@/context/ProsthesesContext";
 import { styles } from "@/styles/settings";
 import { FontAwesome } from "@expo/vector-icons";
 import DateTimePicker from "@react-native-community/datetimepicker";
@@ -17,15 +18,15 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
-  View
+  View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 const SettingsScreen = () => {
   // User data from store
-  const { user, settings, updateUser, toggleDarkMode, clearLocalData } =
-    useUserContext();
+  const { user, settings, updateUser, toggleDarkMode } = useUserContext();
 
+  const { deleteAllProsthesis } = useProstheses();
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [tempName, setTempName] = useState(user.name);
@@ -50,7 +51,7 @@ const SettingsScreen = () => {
       "Are you sure you want to delete all local data? This cannot be undone.",
       [
         { text: "Cancel", style: "cancel" },
-        { text: "Delete", onPress: clearLocalData, style: "destructive" },
+        { text: "Delete", onPress: deleteAllProsthesis, style: "destructive" },
       ]
     );
   };
