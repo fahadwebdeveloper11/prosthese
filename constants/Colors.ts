@@ -32,6 +32,11 @@ export const Colors = {
   green: "#2ECC71",
   border_gray: "#eee",
   gray_second: "#ddd",
-  label:"#444",
-  empty:"#666"
+  label: "#444",
+  empty: "#666",
+  dark_border: "#555",
+  dark_background: "#333",
+  cancel: "#ccc",
+  red: "#ff3b30",
+  dark_container: "#121212",
 };

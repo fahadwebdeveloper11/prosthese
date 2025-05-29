@@ -2,12 +2,12 @@ import { styles } from "@/styles/shared/date-picker-btn";
 import { FontAwesome } from "@expo/vector-icons";
 import React from "react";
 import {
-    StyleProp,
-    Text,
-    TextStyle,
-    TouchableOpacity,
-    View,
-    ViewStyle,
+  StyleProp,
+  Text,
+  TextStyle,
+  TouchableOpacity,
+  View,
+  ViewStyle,
 } from "react-native";
 import { Label } from "./InputAndSelect";
 

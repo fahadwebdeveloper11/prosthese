@@ -1,3 +1,4 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { createContext, useContext, useState } from 'react';
 
 export type Gender = 'male' | 'female';
@@ -13,7 +14,6 @@ interface UserData {
 
 interface AppSettings {
   darkMode: boolean;
-  language: Language;
 }
 
 interface AppContextType {
@@ -21,7 +21,6 @@ interface AppContextType {
   settings: AppSettings;
   updateUser: (data: Partial<UserData>) => void;
   toggleDarkMode: () => void;
-  setLanguage: (lang: Language) => void;
   clearLocalData: () => void;
 }
 
@@ -42,7 +41,6 @@ export const AuthProvider: React.FC<{children: React.ReactNode}> = ({ children }
 
   const [settings, setSettings] = useState<AppSettings>({
     darkMode: false,
-    language: 'en',
   });
 
   const updateUser = (data: Partial<UserData>) => {
@@ -53,13 +51,16 @@ export const AuthProvider: React.FC<{children: React.ReactNode}> = ({ children }
     setSettings(prev => ({ ...prev, darkMode: !prev.darkMode }));
   };
 
-  const setLanguage = (lang: Language) => {
-    setSettings(prev => ({ ...prev, language: lang }));
-  };
 
-  const clearLocalData = () => {
+  const clearLocalData = async() => {
     // Implement actual local data clearing logic here
     console.log('Local data cleared');
+    try {
+      await AsyncStorage.clear();
+    } catch (error) {
+      console.log("error", error);
+      
+    }
   };
 
   return (
@@ -68,7 +69,6 @@ export const AuthProvider: React.FC<{children: React.ReactNode}> = ({ children }
       settings,
       updateUser,
       toggleDarkMode,
-      setLanguage,
       clearLocalData,
     }}>
       {children}
