@@ -1,3 +1,5 @@
+import { Colors } from "@/constants/Colors";
+import { useUserContext } from "@/context/AuthContext";
 import { styles } from "@/styles/shared/input-and-select";
 import { Picker } from "@react-native-picker/picker";
 import React, { memo } from "react";
@@ -38,7 +40,12 @@ type SelectProps = {
 };
 
 export const Label: React.FC<LabelProps> = memo(({ children, style }) => {
-  return <Text style={[styles.label, style]}>{children}</Text>;
+  const { settings } = useUserContext();
+  return (
+    <Text style={[styles.label, style, settings.darkMode && styles.darkLabel]}>
+      {children}
+    </Text>
+  );
 });
 
 export const Input: React.FC<InputProps> = memo(
@@ -51,14 +58,20 @@ export const Input: React.FC<InputProps> = memo(
     inputStyle,
     ...props
   }) => {
+    const { settings } = useUserContext();
     return (
       <View style={style}>
         {label && <Label>{label}</Label>}
         <TextInput
-          style={[styles.input, inputStyle]}
+          style={[
+            styles.input,
+            inputStyle,
+            settings.darkMode && styles.darkInput,
+          ]}
           value={value}
           onChangeText={onChangeText}
           placeholder={placeholder}
+          placeholderTextColor={Colors.gray}
           {...props}
         />
       </View>
@@ -76,15 +89,27 @@ export const Select: React.FC<SelectProps> = memo(
     pickerStyle,
     ...props
   }) => {
+    const { settings } = useUserContext();
     return (
       <View style={style}>
         {label && <Label>{label}</Label>}
-        <View style={styles.pickerContainer}>
+        <View
+          style={[
+            styles.pickerContainer,
+            settings.darkMode && styles.darkPickerContainer,
+          ]}
+        >
           <Picker
             selectedValue={selectedValue}
             onValueChange={onValueChange}
-            style={[styles.picker, pickerStyle]}
+            style={[
+              styles.picker,
+              pickerStyle,
+              settings.darkMode && styles.darkPicker,
+            ]}
             {...props}
+            selectionColor={Colors.primary_blue}
+            dropdownIconColor={settings.darkMode ? Colors.white : Colors.black}
           >
             {items.map((item, index) => (
               <Picker.Item key={index} label={item} value={item} />

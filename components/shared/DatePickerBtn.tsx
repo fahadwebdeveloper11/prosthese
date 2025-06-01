@@ -1,3 +1,4 @@
+import { useUserContext } from "@/context/AuthContext";
 import { styles } from "@/styles/shared/date-picker-btn";
 import { FontAwesome } from "@expo/vector-icons";
 import React from "react";
@@ -36,11 +37,16 @@ export const DatePickerButton: React.FC<DatePickerButtonProps> = ({
   iconColor = "#007AFF",
   isLabel = false,
 }) => {
+  const { settings } = useUserContext();
   return (
     <View style={[styles.dateContainer, containerStyle]}>
       {isLabel && <Label>Date</Label>}
       <TouchableOpacity
-        style={[styles.dateButton, buttonStyle]}
+        style={[
+          styles.dateButton,
+          buttonStyle,
+          settings.darkMode && styles.darkDateButton,
+        ]}
         onPress={onPress}
       >
         <FontAwesome

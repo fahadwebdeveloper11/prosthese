@@ -1,3 +1,4 @@
+import { Colors } from "@/constants/Colors";
 import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
@@ -22,12 +23,16 @@ export const styles = StyleSheet.create({
     marginTop: 8,
   },
   item: {
-    backgroundColor: "#fff",
+    backgroundColor: Colors.white,
     padding: 16,
     marginBottom: 16,
     borderRadius: 8,
     borderWidth: 1,
     borderColor: "#e0e0e0",
+  },
+  darkItem: {
+    backgroundColor: Colors.dark_background,
+    borderColor: Colors.label,
   },
   itemHeader: {
     flexDirection: "row",
@@ -39,6 +44,9 @@ export const styles = StyleSheet.create({
     fontWeight: "bold",
     marginLeft: 8,
   },
+  darkTitle: {
+    color: Colors.white,
+  },
   details: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -46,13 +54,22 @@ export const styles = StyleSheet.create({
   },
   date: {
     fontSize: 14,
-    color: "#666",
+    color:Colors.empty,
+  },
+  darkDate: {
+    color: Colors.primary_blue,
   },
   score: {
     fontSize: 14,
   },
+  darkScore: {
+    color: Colors.primary_blue,
+  },
   scoreValue: {
     fontWeight: "bold",
+  },
+  darkScoreValue: {
+    color: Colors.primary_blue,
   },
   notes: {
     fontSize: 14,
@@ -89,15 +106,26 @@ export const styles = StyleSheet.create({
     borderRadius: 4,
     backgroundColor: "#f9f9f9",
   },
+  darkOptionButton: {
+    backgroundColor: Colors.dark_background,
+    borderColor: Colors.dark_border,
+  },
   selectedOption: {
     backgroundColor: "#e3f2fd",
-    borderColor: "#007AFF",
+    borderColor: Colors.primary_blue,
+  },
+  darkSelectedOption: {
+    backgroundColor: Colors.primary_blue,
+    borderColor: Colors.primary_blue,
   },
   disabledOption: {
     opacity: 0.7,
   },
   optionText: {
     fontSize: 13,
+  },
+  darkOptionText: {
+    color: Colors.white,
   },
   testScoreContainer: {
     flexDirection: "row",
@@ -108,6 +136,9 @@ export const styles = StyleSheet.create({
     marginRight: 8,
     color: "#666",
   },
+  darkScoreLabel: {
+    color: Colors.white,
+  },
   scoreInput: {
     borderWidth: 1,
     borderColor: "#ddd",
@@ -116,9 +147,17 @@ export const styles = StyleSheet.create({
     width: 60,
     fontSize: 13,
   },
+  darkScoreInput: {
+    backgroundColor: Colors.dark_background,
+    borderColor: Colors.dark_border,
+    color: Colors.white,
+  },
   scoreDisplay: {
     fontSize: 13,
     fontWeight: "bold",
+  },
+  darkScoreDisplay: {
+    color: Colors.primary_blue,
   },
   buttonContainer: {
     flexDirection: "row",

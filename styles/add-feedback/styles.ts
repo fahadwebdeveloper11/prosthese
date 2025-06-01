@@ -1,11 +1,15 @@
+import { Colors } from "@/constants/Colors";
 import { StyleSheet } from "react-native";
 
 // Add these styles to your existing styles
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: Colors.white,
     paddingBottom: 40,
+  },
+  darkContainer: {
+    backgroundColor: Colors.dark_container,
   },
   formContainer: {
     // padding: 20,

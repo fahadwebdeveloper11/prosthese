@@ -1,3 +1,4 @@
+import { Colors } from "@/constants/Colors";
 import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
@@ -8,6 +9,9 @@ export const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: "#eee",
   },
+  darkTabContainer: {
+    borderBottomColor: "#333",
+  },
   tab: {
     flexDirection: "row",
     alignItems: "center",
@@ -16,6 +20,9 @@ export const styles = StyleSheet.create({
   },
   activeTab: {
     backgroundColor: "#e6f2ff",
+  },
+  darkActiveTab: {
+    backgroundColor:Colors.empty,
   },
   tabText: {
     marginLeft: 8,

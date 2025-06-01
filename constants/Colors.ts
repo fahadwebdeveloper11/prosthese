@@ -39,4 +39,6 @@ export const Colors = {
   cancel: "#ccc",
   red: "#ff3b30",
   dark_container: "#121212",
+  dark_stroke: "#90CAF9",
+  stroke: "#1976D2",
 };

@@ -1,3 +1,5 @@
+import { Colors } from "@/constants/Colors";
+import { useUserContext } from "@/context/AuthContext";
 import { styles } from "@/styles/evaluations/eval-card";
 import { Evaluation, EvaluationTest, EvaluationWithType } from "@/types/types";
 import { calculateAverageTestScore } from "@/utils/calculateAvgTestScore";
@@ -24,6 +26,7 @@ const EvalCard: React.FC<Props> = ({
   const [editingEvaluationId, setEditingEvaluationId] = useState<string | null>(
     null
   );
+  const { settings } = useUserContext();
   const [editedTests, setEditedTests] = useState<any[]>([]);
 
   const startEditing = (evaluation: any) => {
@@ -84,7 +87,7 @@ const EvalCard: React.FC<Props> = ({
   };
 
   return (
-    <View style={styles.item}>
+    <View style={[styles.item, settings.darkMode && styles.darkItem]}>
       <View style={styles.itemHeader}>
         {(item.prosthesisType === "Hip" && (
           <FontAwesome name="wheelchair" size={20} color="#007AFF" />
@@ -92,20 +95,31 @@ const EvalCard: React.FC<Props> = ({
           (item.prosthesisType === "Knee" && (
             <Ionicons name="walk" size={20} color="#007AFF" />
           )) || <FontAwesome name="user-md" size={20} color="#007AFF" />}
-        <Text style={styles.title}>{item.prosthesisType} Evaluation</Text>
+        <Text style={[styles.title, settings.darkMode && styles.darkTitle]}>
+          {item.prosthesisType} Evaluation
+        </Text>
       </View>
 
       {/* Details Section */}
       <View style={styles.details}>
-        <Text style={styles.date}>
+        <Text style={[styles.date, settings.darkMode && styles.darkDate]}>
           {new Date(item.date).toLocaleDateString("en-US", {
             year: "numeric",
             month: "short",
             day: "numeric",
           })}
         </Text>
-        <Text style={styles.score}>
-          Score: <Text style={styles.scoreValue}>{item.score}/100</Text>
+        <Text style={[styles.score, settings.darkMode && styles.darkScore]}>
+          Score:{" "}
+          <Text
+            style={[
+              styles.scoreValue,
+              settings.darkMode && styles.darkScoreValue,
+            ]}
+          >
+            {item.total_score}
+            /100
+          </Text>
         </Text>
       </View>
 
@@ -122,11 +136,17 @@ const EvalCard: React.FC<Props> = ({
                     key={option}
                     style={[
                       styles.optionButton,
+                      settings.darkMode && styles.darkOptionButton,
                       (editingEvaluationId === item.id
                         ? test.selectedOption === option
                         : test.selectedOption === option) &&
                         styles.selectedOption,
                       editingEvaluationId !== item.id && styles.disabledOption,
+                      settings.darkMode &&
+                        (editingEvaluationId === item.id
+                          ? test.selectedOption === option
+                          : test.selectedOption === option) &&
+                        styles.darkSelectedOption,
                     ]}
                     onPress={() =>
                       editingEvaluationId === item.id &&
@@ -134,26 +154,28 @@ const EvalCard: React.FC<Props> = ({
                     }
                     disabled={editingEvaluationId !== item.id}
                   >
-                    <Text style={styles.optionText}>{option}</Text>
+                    <Text style={[styles.optionText, settings.darkMode && styles.darkOptionText]}>{option}</Text>
                   </TouchableOpacity>
                 ))}
               </View>
 
               <View style={styles.testScoreContainer}>
-                <Text style={styles.scoreLabel}>Score:</Text>
+                <Text style={[styles.scoreLabel, settings.darkMode && styles.darkScoreLabel]}>Score:</Text>
                 {editingEvaluationId === item.id ? (
                   <TextInput
-                    style={styles.scoreInput}
+                    style={[styles.scoreInput, settings.darkMode && styles.darkScoreInput]}
                     value={test.score?.toString() || ""}
                     onChangeText={(text) =>
                       handleTestScoreChange(test.id, text)
                     }
+
                     maxLength={3}
                     keyboardType="numeric"
                     placeholder="0-100"
+                    placeholderTextColor={Colors.empty}
                   />
                 ) : (
-                  <Text style={styles.scoreDisplay}>{test.score || "--"}</Text>
+                  <Text style={[styles.scoreDisplay, settings.darkMode && styles.darkScoreDisplay]}>{test.score || "--"}</Text>
                 )}
               </View>
             </View>

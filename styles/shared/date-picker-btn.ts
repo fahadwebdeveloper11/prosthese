@@ -15,6 +15,14 @@ export const styles = StyleSheet.create({
     borderColor: Colors.gray_second,
     backgroundColor: "white",
   },
+  darkDateContainer: {
+    borderColor: Colors.dark_border,
+    backgroundColor: Colors.dark_background,
+  },
+  darkDateButton: {
+    borderColor: Colors.dark_border,
+    backgroundColor: Colors.dark_background,
+  },
   dateText: {
     marginLeft: 10,
     fontSize: 16,

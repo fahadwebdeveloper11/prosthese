@@ -8,6 +8,9 @@ export const styles = StyleSheet.create({
     marginBottom: 8,
     color: Colors.label,
   },
+  darkLabel: {
+    color: Colors.white,
+  },
   input: {
     borderWidth: 1,
     borderColor: Colors.border_gray,
@@ -16,6 +19,11 @@ export const styles = StyleSheet.create({
     fontSize: 16,
     backgroundColor: Colors.white,
   },
+  darkInput: {
+    borderColor: Colors.dark_border,
+    backgroundColor: Colors.dark_background,
+    color: Colors.white,
+  },
   pickerContainer: {
     borderWidth: 1,
     borderColor: Colors.border_gray,
@@ -23,7 +31,26 @@ export const styles = StyleSheet.create({
     overflow: "hidden",
     backgroundColor: Colors.white,
   },
+  darkPickerContainer: {
+    borderColor: Colors.dark_border,
+    backgroundColor: Colors.dark_background,
+  },
   picker: {
     width: "100%",
   },
+  darkPicker: {
+    color: Colors.white,
+  },
+  pickerItem: {
+    // fontSize: 16,
+    // color: Colors.black,
+    backgroundColor: Colors.white,
+
+  },
+  darkPickerItem: {
+    color: Colors.white,
+    backgroundColor: Colors.dark_background,
+  },
 });
+
+

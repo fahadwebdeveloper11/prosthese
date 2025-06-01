@@ -44,14 +44,14 @@ export const styles = StyleSheet.create({
   section: {
     marginBottom: 30,
     borderBottomWidth: 1,
-    borderBottomColor: "#ddd",
+    borderBottomColor: Colors.gray_second,
     paddingBottom: 20,
   },
   sectionTitle: {
     fontSize: 18,
     fontWeight: "600",
     marginBottom: 15,
-    color: "#000",
+    color: Colors.black,
   },
   row: {
     flexDirection: "row",
@@ -67,34 +67,34 @@ export const styles = StyleSheet.create({
   label: {
     width: 120,
     fontSize: 16,
-    color: "#000",
+    color: Colors.black,
   },
   value: {
     flex: 1,
     fontSize: 16,
-    color: "#000",
+    color: Colors.black,
   },
   input: {
     flex: 1,
     borderWidth: 1,
-    borderColor: "#ddd",
+    borderColor: Colors.gray_second,
     borderRadius: 5,
     padding: 10,
     fontSize: 16,
-    backgroundColor: "#fff",
+    backgroundColor: Colors.white,
   },
   darkInput: {
-    borderColor: "#555",
-    backgroundColor: "#333",
-    color: "#fff",
+    borderColor: Colors.dark_border,
+    backgroundColor: Colors.dark_background,
+    color: Colors.white,
   },
   picker: {
     flex: 1,
     height: 50,
   },
   darkPicker: {
-    color: "#fff",
-    backgroundColor: "#333",
+    color: Colors.white,
+    backgroundColor: Colors.dark_background,
   },
 
   buttonRow: {
@@ -103,18 +103,18 @@ export const styles = StyleSheet.create({
     marginTop: 20,
   },
   editButton: {
-    backgroundColor: "#007AFF",
+    backgroundColor: Colors.primary_blue,
     padding: 10,
     borderRadius: 5,
     alignItems: "center",
     marginTop: 10,
   },
   editButtonText: {
-    color: "#fff",
+    color: Colors.white,
     fontWeight: "500",
   },
   cancelButton: {
-    backgroundColor: "#ccc",
+    backgroundColor: Colors.cancel,
     padding: 10,
     borderRadius: 5,
     flex: 1,
@@ -122,25 +122,25 @@ export const styles = StyleSheet.create({
     alignItems: "center",
   },
   saveButton: {
-    backgroundColor: "#007AFF",
+    backgroundColor: Colors.primary_blue,
     padding: 10,
     borderRadius: 5,
     flex: 1,
     alignItems: "center",
   },
   buttonText: {
-    color: "#fff",
+    color: Colors.white,
     fontWeight: "500",
   },
   dangerButton: {
-    backgroundColor: "#ff3b30",
+    backgroundColor: Colors.red,
     padding: 15,
     borderRadius: 5,
     alignItems: "center",
     marginBottom: 10,
   },
   dangerButtonText: {
-    color: "#fff",
+    color: Colors.white,
     fontWeight: "500",
   },
 });

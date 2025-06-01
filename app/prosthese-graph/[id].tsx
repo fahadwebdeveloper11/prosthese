@@ -2,20 +2,19 @@ import TabHeader from "@/components/prosthese-graph/TabHeader";
 import Chart from "@/components/shared/Chart";
 import { DatePickerButton } from "@/components/shared/DatePickerBtn";
 import Header from "@/components/shared/Header";
+import { Input } from "@/components/shared/InputAndSelect";
 import { monthNames } from "@/constants/prosthese-graph";
-import { useProstheses } from "@/context/ProsthesesContext";
+import { useUserContext } from "@/context/AuthContext";
 import { styles } from "@/styles/prosthese-graph/prosthese-graph";
 import { Evaluation } from "@/types/types";
 import { FontAwesome } from "@expo/vector-icons";
 import DateTimePicker from "@react-native-community/datetimepicker";
-import { useLocalSearchParams } from "expo-router";
 import { useState } from "react";
 import {
   Alert,
   Dimensions,
   ScrollView,
   Text,
-  TextInput,
   TouchableOpacity,
   View,
 } from "react-native";
@@ -26,8 +25,6 @@ const chartWidth = Dimensions.get("window").width * 0.98;
 type EvaluationType = "pain" | "rom" | "happiness";
 
 export default function GraphsScreen() {
-  const { id } = useLocalSearchParams();
-  const { prostheses } = useProstheses();
   const [activeTab, setActiveTab] = useState<EvaluationType>("pain");
   const [painLevel, setPainLevel] = useState<any[]>([]);
   const [rom, setRom] = useState<any[]>([]);
@@ -35,15 +32,7 @@ export default function GraphsScreen() {
   const [score, setScore] = useState("");
   const [date, setDate] = useState(new Date());
   const [showDatePicker, setShowDatePicker] = useState(false);
-  const prosthesis = prostheses.find((p) => p.id === id);
-
-  if (!prosthesis) {
-    return (
-      <SafeAreaView style={styles.container}>
-        <Text>Prosthesis not found</Text>
-      </SafeAreaView>
-    );
-  }
+  const { settings } = useUserContext();
 
   const getCurrentTabData = () => {
     switch (activeTab) {
@@ -168,21 +157,25 @@ export default function GraphsScreen() {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <Header title={"Prosthesis Graphs"} />
-      <TabHeader activeTab={activeTab} setActiveTab={setActiveTab} />
+    <SafeAreaView
+      style={[styles.container, settings.darkMode && styles.darkContainer]}
+    >
+      <Header title={"Prosthesis Graphs"} darkMode={settings.darkMode} />
+      <TabHeader
+        darkMode={settings.darkMode}
+        activeTab={activeTab}
+        setActiveTab={setActiveTab}
+      />
 
       <ScrollView style={styles.contentContainer}>
-        <View style={styles.inputContainer}>
-          <TextInput
-            style={styles.input}
-            placeholder={currentTabData.placeholder}
-            keyboardType="numeric"
-            value={score}
-            onChangeText={setScore}
-          />
-          <Text style={styles.unitText}>{currentTabData.unit}</Text>
-        </View>
+        <Input
+          inputStyle={styles.input}
+          placeholder={currentTabData.placeholder}
+          keyboardType="numeric"
+          value={score}
+          onChangeText={setScore}
+        />
+        {/* <Text style={styles.unitText}>{currentTabData.unit}</Text> */}
 
         <View style={styles.dateContainer}>
           <DatePickerButton

@@ -6,15 +6,16 @@ import { Text, TouchableOpacity, View } from "react-native";
 
 interface HeaderProps {
   title: string;
+  darkMode?: boolean;
 }
 
-const Header: FC<HeaderProps> = ({ title }) => {
+const Header: FC<HeaderProps> = ({ title,darkMode }) => {
   return (
-    <View style={styles.header}>
+    <View style={[styles.header, darkMode && styles.darkHeader]}>
       <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
         <FontAwesome name="arrow-left" size={24} color="#007AFF" />
       </TouchableOpacity>
-      <Text style={styles.title}>{title}</Text>
+      <Text style={[styles.title, darkMode && styles.darkTitle]}>{title}</Text>
       <View style={{ width: 24 }} />
     </View>
   );

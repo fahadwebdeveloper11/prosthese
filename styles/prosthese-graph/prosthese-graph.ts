@@ -1,9 +1,13 @@
+import { Colors } from "@/constants/Colors";
 import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: Colors.background,
+  },
+  darkContainer: {
+    backgroundColor: Colors.dark_container,
   },
   contentContainer: {},
   header: {
@@ -31,27 +35,21 @@ export const styles = StyleSheet.create({
     color: "#999",
   },
 
-  inputContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginHorizontal: 20,
-    marginTop: 20,
-    borderWidth: 1,
-    borderColor: "#ddd",
-    borderRadius: 10,
-    paddingHorizontal: 15,
-  },
   input: {
     flex: 1,
-    height: 50,
-    fontSize: 16,
+    marginHorizontal: 20,
+    position: "relative",
+    marginVertical: 20,
   },
   unitText: {
     fontSize: 16,
     color: "#666",
+    position: "absolute",
+    right: 40,
+    top: 20,
   },
   dateContainer: {
-    marginVertical: 20,
+    marginBottom: 20,
     flexDirection: "row",
     justifyContent: "space-between",
     marginHorizontal: 20,

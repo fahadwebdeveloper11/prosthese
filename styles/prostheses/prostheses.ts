@@ -4,11 +4,20 @@ import { StyleSheet } from "react-native";
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#f5f5f5",
+    backgroundColor: Colors.background,
+  },
+  scrollContainer: {
+    backgroundColor: Colors.background,
+  },
+  darkContainer: {
+    backgroundColor: Colors.dark_container,
+  },
+  darkEmptyContainer: {
+    backgroundColor: Colors.dark_container,
   },
   listContent: {
     padding: 16,
-    gap:20
+    gap: 15,
   },
   loadingContainer: {
     flex: 1,
@@ -20,7 +29,7 @@ export const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     padding: 20,
-    backgroundColor: Colors.background,
+    // backgroundColor: Colors.background,
   },
   emptyText: {
     fontSize: 18,

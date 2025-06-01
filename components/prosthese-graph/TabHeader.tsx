@@ -5,13 +5,14 @@ import { Text, TouchableOpacity, View } from "react-native";
 
 type Props = {
   activeTab: string;
-  setActiveTab:any;
+  setActiveTab: any;
+  darkMode: boolean;
 };
-const TabHeader: FC<Props> = ({ activeTab, setActiveTab }) => {
+const TabHeader: FC<Props> = ({ activeTab, setActiveTab, darkMode }) => {
   return (
-    <View style={styles.tabContainer}>
+    <View style={[styles.tabContainer, darkMode && styles.darkTabContainer]}>
       <TouchableOpacity
-        style={[styles.tab, activeTab === "pain" && styles.activeTab]}
+        style={[styles.tab, activeTab === "pain" && styles.activeTab, ]}
         onPress={() => setActiveTab("pain")}
       >
         <FontAwesome

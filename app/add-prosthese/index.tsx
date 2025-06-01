@@ -3,6 +3,7 @@ import Header from "@/components/shared/Header";
 import { Input, Select } from "@/components/shared/InputAndSelect";
 import { Colors } from "@/constants/Colors";
 import { prostheseTypes } from "@/constants/prosthese-types";
+import { useUserContext } from "@/context/AuthContext";
 import { useProstheses } from "@/context/ProsthesesContext";
 import { styles } from "@/styles/add-prosthese/add-prosthese";
 import DateTimePicker from "@react-native-community/datetimepicker";
@@ -20,11 +21,13 @@ export default function AddProsthesis() {
     date: new Date(),
     hospitalName: "",
     position: "",
+    path: "",
   });
 
   const [showDatePicker, setShowDatePicker] = useState(false);
 
   const { addProsthesis } = useProstheses();
+  const { settings } = useUserContext();
 
   const handleSubmit = useCallback(async () => {
     if (
@@ -32,6 +35,7 @@ export default function AddProsthesis() {
       !data.hospitalName ||
       !data.type ||
       !data.date ||
+      !data.path ||
       !data.position
     ) {
       alert("Please fill all fields");
@@ -60,18 +64,19 @@ export default function AddProsthesis() {
     [data, setData]
   );
 
-  const handleInputChange = useCallback(
-    (val: string, key: string) => {
-      setData({
-        ...data,
-        [key]: val,
-      });
-    },
-    [data, setData]
-  );
+  const handleInputChange = (val: string, key: string) => {
+    setData({
+      ...data,
+      [key]: val,
+    });
+  };
+  // console.log("data", data);
+
   return (
-    <SafeAreaView style={styles.container}>
-      <Header title="Add Prosthesis" />
+    <SafeAreaView
+      style={[styles.container, settings.darkMode && styles.darkContainer]}
+    >
+      <Header title="Add Prosthesis" darkMode={settings.darkMode} />
 
       <View style={styles.formContainer}>
         <Input
@@ -84,8 +89,13 @@ export default function AddProsthesis() {
         <Select
           label="Prosthesis Type"
           selectedValue={data.type}
-          onValueChange={(itemValue) => handleInputChange(itemValue, "type")}
-          items={prostheseTypes}
+          onValueChange={(itemValue) => {
+            const path = prostheseTypes.find(
+              (type) => type.name === itemValue
+            )?.path;
+            setData((prev) => ({ ...prev, path: path || "", type: itemValue }));
+          }}
+          items={prostheseTypes.map((type) => type.name)}
         />
 
         <Input

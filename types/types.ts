@@ -10,11 +10,12 @@ export type EvaluationTest = {
 export interface Prosthesis {
   id: string;
   type: string;
-  evaluations: Evaluation[];
+  evaluations?: Evaluation[];
   hospitalName: string;
   date: Date;
   prostheseName: string;
   position: string;
+  path: string;
 }
 
 export interface Evaluation {
@@ -36,7 +37,7 @@ export interface Evaluation {
 export type EvaluationWithType = {
   id: string;
   date: string;
-  score: number;
+  total_score: number;
   notes?: string;
   prosthesisType: string;
   prosthesisId: string;

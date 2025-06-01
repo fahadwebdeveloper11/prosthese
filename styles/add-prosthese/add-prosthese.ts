@@ -6,6 +6,9 @@ export const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: Colors.background,
   },
+  darkContainer: {
+    backgroundColor: Colors.dark_container,
+  },
   header: {
     flexDirection: "row",
     justifyContent: "space-between",

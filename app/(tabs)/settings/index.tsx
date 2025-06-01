@@ -20,7 +20,6 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 
 const SettingsScreen = () => {
   // User data from store
@@ -65,172 +64,171 @@ const SettingsScreen = () => {
   };
 
   return (
-    <ScrollView>
-      <SafeAreaView
-        style={[styles.container, darkMode && styles.darkContainer]}
-      >
-        <>
-          <Section title="Settings" darkMode={darkMode}>
-            {isEditing ? (
-              <>
-                <SectionRow
-                  label="Name"
-                  darkMode={darkMode}
-                  isEditing
-                  editComponent={
-                    <TextInput
-                      style={[styles.input, darkMode && styles.darkInput]}
-                      value={tempName}
-                      onChangeText={setTempName}
-                      placeholder="Enter name"
-                      placeholderTextColor={Colors.gray}
-                    />
-                  }
-                />
+    <ScrollView style={[styles.container, darkMode && styles.darkContainer]}>
+      {/* <SafeAreaView
+      > */}
+      <>
+        <Section title="Settings" darkMode={darkMode}>
+          {isEditing ? (
+            <>
+              <SectionRow
+                label="Name"
+                darkMode={darkMode}
+                isEditing
+                editComponent={
+                  <TextInput
+                    style={[styles.input, darkMode && styles.darkInput]}
+                    value={tempName}
+                    onChangeText={setTempName}
+                    placeholder="Enter name"
+                    placeholderTextColor={Colors.gray}
+                  />
+                }
+              />
 
-                <SectionRow
-                  label="Surname"
-                  darkMode={darkMode}
-                  isEditing
-                  editComponent={
-                    <TextInput
-                      style={[styles.input, darkMode && styles.darkInput]}
-                      value={tempSurname}
-                      onChangeText={setTempSurname}
-                      placeholder="Enter surname"
-                      placeholderTextColor={Colors.gray}
-                    />
-                  }
-                />
+              <SectionRow
+                label="Surname"
+                darkMode={darkMode}
+                isEditing
+                editComponent={
+                  <TextInput
+                    style={[styles.input, darkMode && styles.darkInput]}
+                    value={tempSurname}
+                    onChangeText={setTempSurname}
+                    placeholder="Enter surname"
+                    placeholderTextColor={Colors.gray}
+                  />
+                }
+              />
 
-                <SectionRow
-                  label="Gender"
-                  darkMode={darkMode}
-                  isEditing
-                  editComponent={
-                    <Picker
-                      selectedValue={tempGender}
-                      onValueChange={setTempGender}
-                      style={[styles.picker, darkMode && styles.darkPicker]}
+              <SectionRow
+                label="Gender"
+                darkMode={darkMode}
+                isEditing
+                editComponent={
+                  <Picker
+                    selectedValue={tempGender}
+                    onValueChange={setTempGender}
+                    style={[styles.picker, darkMode && styles.darkPicker]}
+                  >
+                    <Picker.Item label="Male" value="male" />
+                    <Picker.Item label="Female" value="female" />
+                  </Picker>
+                }
+              />
+              <SectionRow
+                label="Date of Birth"
+                darkMode={darkMode}
+                isEditing
+                editComponent={
+                  <>
+                    <TouchableOpacity
+                      style={[
+                        styles.dateButton,
+                        darkMode && styles.darkDateButton,
+                      ]}
+                      onPress={() => setShowDatePicker(true)}
                     >
-                      <Picker.Item label="Male" value="male" />
-                      <Picker.Item label="Female" value="female" />
-                    </Picker>
-                  }
-                />
-                <SectionRow
-                  label="Date of Birth"
-                  darkMode={darkMode}
-                  isEditing
-                  editComponent={
-                    <>
-                      <TouchableOpacity
-                        style={[
-                          styles.dateButton,
-                          darkMode && styles.darkDateButton,
-                        ]}
-                        onPress={() => setShowDatePicker(true)}
+                      <FontAwesome
+                        name={"calendar"}
+                        size={20}
+                        color={Colors.primary_blue}
+                      />
+                      <Text
+                        style={[styles.dateText, darkMode && styles.darkText]}
                       >
-                        <FontAwesome
-                          name={"calendar"}
-                          size={20}
-                          color={Colors.primary_blue}
-                        />
-                        <Text
-                          style={[styles.dateText, darkMode && styles.darkText]}
-                        >
-                          {tempDob.toLocaleDateString()}
-                        </Text>
-                      </TouchableOpacity>
-                      {showDatePicker && (
-                        <DateTimePicker
-                          value={tempDob}
-                          mode="date"
-                          display="default"
-                          onChange={(event, selectedDate) => {
-                            setShowDatePicker(false);
-                            if (selectedDate) {
-                              setTempDob(selectedDate);
-                            }
-                          }}
-                          maximumDate={new Date()}
-                        />
-                      )}
-                    </>
-                  }
-                />
+                        {tempDob.toLocaleDateString()}
+                      </Text>
+                    </TouchableOpacity>
+                    {showDatePicker && (
+                      <DateTimePicker
+                        value={tempDob}
+                        mode="date"
+                        display="default"
+                        onChange={(event, selectedDate) => {
+                          setShowDatePicker(false);
+                          if (selectedDate) {
+                            setTempDob(selectedDate);
+                          }
+                        }}
+                        maximumDate={new Date()}
+                      />
+                    )}
+                  </>
+                }
+              />
 
-                <View style={styles.buttonRow}>
-                  <SectionButton
-                    title="Cancel"
-                    onPress={() => setIsEditing(false)}
-                    style={styles.cancelButton}
-                  />
-                  <SectionButton
-                    title="Save"
-                    onPress={handleSave}
-                    style={styles.saveButton}
-                  />
-                </View>
-              </>
-            ) : (
-              <>
-                <SectionRow
-                  label="Name"
-                  value={`${user.name} ${tempSurname}`}
-                  darkMode={darkMode}
-                />
-
-                <SectionRow
-                  label="Gender"
-                  value={tempGender}
-                  darkMode={darkMode}
-                />
-
-                <SectionRow
-                  label="Date of Birth"
-                  value={tempDob.toLocaleDateString()}
-                  darkMode={darkMode}
-                />
-
-                <SectionRow
-                  label="User ID"
-                  value={user.userId}
-                  darkMode={darkMode}
-                />
-
+              <View style={styles.buttonRow}>
                 <SectionButton
-                  title="Edit Profile"
-                  onPress={() => setIsEditing(true)}
-                  style={styles.editButton}
+                  title="Cancel"
+                  onPress={() => setIsEditing(false)}
+                  style={styles.cancelButton}
                 />
-              </>
-            )}
-          </Section>
+                <SectionButton
+                  title="Save"
+                  onPress={handleSave}
+                  style={styles.saveButton}
+                />
+              </View>
+            </>
+          ) : (
+            <>
+              <SectionRow
+                label="Name"
+                value={`${user.name} ${tempSurname}`}
+                darkMode={darkMode}
+              />
 
-          <Section title="App Settings" darkMode={darkMode}>
-            <SectionSwitch
-              label="Dark Mode"
-              value={darkMode}
-              onValueChange={toggleDarkMode}
-              darkMode={darkMode}
-            />
-          </Section>
+              <SectionRow
+                label="Gender"
+                value={tempGender}
+                darkMode={darkMode}
+              />
 
-          <Section title="Data Settings" darkMode={darkMode}>
-            <SectionButton
-              title="Delete Local Data"
-              onPress={confirmDeleteLocalData}
-              isDanger
-            />
-            <SectionButton
-              title="Delete Remote Data"
-              onPress={deleteRemoteData}
-              isDanger
-            />
-          </Section>
-        </>
-      </SafeAreaView>
+              <SectionRow
+                label="Date of Birth"
+                value={tempDob.toLocaleDateString()}
+                darkMode={darkMode}
+              />
+
+              <SectionRow
+                label="User ID"
+                value={user.userId}
+                darkMode={darkMode}
+              />
+
+              <SectionButton
+                title="Edit Profile"
+                onPress={() => setIsEditing(true)}
+                style={styles.editButton}
+              />
+            </>
+          )}
+        </Section>
+
+        <Section title="App Settings" darkMode={darkMode}>
+          <SectionSwitch
+            label="Dark Mode"
+            value={darkMode}
+            onValueChange={toggleDarkMode}
+            darkMode={darkMode}
+          />
+        </Section>
+
+        <Section title="Data Settings" darkMode={darkMode}>
+          <SectionButton
+            title="Delete Local Data"
+            onPress={confirmDeleteLocalData}
+            isDanger
+          />
+          <SectionButton
+            title="Delete Remote Data"
+            onPress={deleteRemoteData}
+            isDanger
+          />
+        </Section>
+      </>
+      {/* </SafeAreaView> */}
     </ScrollView>
   );
 };
